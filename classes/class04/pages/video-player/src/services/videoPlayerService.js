@@ -32,9 +32,16 @@ export default class VideoPlayerService {
       const leftEAR = this.#getEAR(upperLeft, lowerLeft)
 
       // True if the eye is closed
-      const blinked = leftEAR <= EAR_THRESHOLD && rightEAR <= EAR_THRESHOLD
+      const blinkedLeftEye = leftEAR <= EAR_THRESHOLD
+      const blinkedRightEye = rightEAR <= EAR_THRESHOLD
+      const blinked = blinkedLeftEye && blinkedRightEye
+
+      console.log('Blinked Left Eye', blinkedLeftEye)
+      console.log('Blinked Right Eye', blinkedRightEye)
+
       if (!blinked) continue
-      if(!shouldRun()) continue
+
+      if (!shouldRun()) continue
       return blinked
     }
 
