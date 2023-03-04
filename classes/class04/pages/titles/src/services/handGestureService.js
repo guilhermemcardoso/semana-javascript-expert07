@@ -4,7 +4,13 @@ export default class HandGestureService {
   #handsVersion
   #detector = null
   #gestureStrings
-  constructor({ fingerpose, handPoseDetection, handsVersion, knownGestures, gestureStrings }) {
+  constructor({
+    fingerpose,
+    handPoseDetection,
+    handsVersion,
+    knownGestures,
+    gestureStrings,
+  }) {
     this.#gestureEstimator = new fingerpose.GestureEstimator(knownGestures)
     this.#handPoseDetection = handPoseDetection
     this.#handsVersion = handsVersion
@@ -32,7 +38,12 @@ export default class HandGestureService {
         (keypoint) => keypoint.name === 'index_finger_tip'
       )
       yield { event: result.name, x, y }
-      console.log('detected', this.#gestureStrings[result.name], x, y)
+      console.log(
+        `Detected ${hand.handedness} hand gesture:`,
+        this.#gestureStrings[result.name],
+        x,
+        y
+      )
     }
   }
 
